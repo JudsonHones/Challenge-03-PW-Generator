@@ -10,8 +10,7 @@ function generatePassword(length = 8, lower = true, upper = true, number = true,
   var upper = document.querySelector("#uppercase").checked;
   var number = document.querySelector("#numbers").checked;
   var special = document.querySelector("#special").checked;
-  var length = prompt("How long would you like your password to be? (8-128 characters)");
-  
+  var length = parseInt(document.querySelector("#length").value);  
   length = parseInt(length);
   
   if (length < 8 || length > 128) {
