@@ -3,17 +3,13 @@ var generateBtn = document.querySelector("#generate");
 // Randomize function
 const randomize = (str) => str.charAt(Math.floor(Math.random() * str.length));
 // Write password to the #password input
+var passwordText = document.querySelector("#password");
 function generatePassword(length = 8, lower = true, upper = true, number = true, special = true) {
   var password = "";
-  var passwordText = document.querySelector("#password");
-  var lower = prompt("Would you like to include lowercase letters? (yes/no)");
-  lower = lower.toLowerCase() === "yes";
-  var upper = prompt("Would you like to include uppercase letters? (yes/no)");
-  upper = upper.toLowerCase() === "yes";
-  var number = prompt("Would you like to include numbers? (yes/no)");
-  number = number.toLowerCase() === "yes";
-  var special = prompt("Would you like to include special characters? (yes/no)");
-  special = special.toLowerCase() === "yes";
+  var lower = prompt("Would you like to include lowercase letters? (yes/no)").toLowerCase() === "yes";
+  var upper = prompt("Would you like to include uppercase letters? (yes/no)").toLowerCase() === "yes";
+  var number = prompt("Would you like to include numbers? (yes/no)").toLowerCase() === "yes";
+  var special = prompt("Would you like to include special characters? (yes/no)").toLowerCase() === "yes";
   var length = prompt("How long would you like your password to be? (8-128 characters)");
   
   length = parseInt(length);
@@ -27,26 +23,20 @@ function generatePassword(length = 8, lower = true, upper = true, number = true,
     alert("Please select at least one character type");
     return;
   }
-  
-  var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var numbers = "0123456789";
-  var specialCharacters = "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
-  
+var characterSets = [
+  { set: "abcdefghijklmnopqrstuvwxyz", condition: lower },
+  { set: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", condition: upper },
+  { set: "0123456789", condition: number },
+  { set: "!@#$%^&*()_+~`|}{[]:;?><,./-=", condition: special },
+]
   var allowed = "";
-  if (lower) {
-    allowed += lowerCase;
+  for (let i = 0; i < characterSets.length; i++) {
+    if (characterSets[i].condition) {
+      allowed += characterSets[i].set;
+    }
   }
-  if (upper) {
-    allowed += upperCase;
-  }
-  if (number) {
-    allowed += numbers;
-  }
-  if (special) {
-    allowed += specialCharacters;
-  }
-  for (let i = 0; i < length; i++) {
+  
+  for  (let i = 0; i < length; i++) {
     password += randomize(allowed);
   }
   var passwordText = document.querySelector("#password");
@@ -56,5 +46,5 @@ return password;
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", function () {
-  generatePassword();
+  passwordText.value = generatePassword();
 });
