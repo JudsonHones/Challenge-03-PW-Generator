@@ -6,10 +6,10 @@ const randomize = (str) => str.charAt(Math.floor(Math.random() * str.length));
 var passwordText = document.querySelector("#password");
 function generatePassword(length = 8, lower = true, upper = true, number = true, special = true) {
   var password = "";
-  var lower = prompt("Would you like to include lowercase letters? (yes/no)").toLowerCase() === "yes";
-  var upper = prompt("Would you like to include uppercase letters? (yes/no)").toLowerCase() === "yes";
-  var number = prompt("Would you like to include numbers? (yes/no)").toLowerCase() === "yes";
-  var special = prompt("Would you like to include special characters? (yes/no)").toLowerCase() === "yes";
+  var lower = document.querySelector("#lowercase").checked;
+  var upper = document.querySelector("#uppercase").checked;
+  var number = document.querySelector("#numbers").checked;
+  var special = document.querySelector("#special").checked;
   var length = prompt("How long would you like your password to be? (8-128 characters)");
   
   length = parseInt(length);
